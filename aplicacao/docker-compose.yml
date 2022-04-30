@@ -1,7 +1,7 @@
 version: "3.8"
-
 services:
-   db:
+
+  db:
     image: postgres
     container_name: db
     volumes:
@@ -17,3 +17,17 @@ services:
       interval: 5s
       start_period: 5s
     restart: always
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    volumes:
+      - .:/home/aplicacao
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    links:
+      - db
