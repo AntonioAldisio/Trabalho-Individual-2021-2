@@ -1,15 +1,14 @@
-name: Build
+name: CD
 
 on:
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["CI"]
+    branches: [main]
+    types: 
+      - completed
 
 jobs:
-  ci:
-    uses: AntonioAldisio/Trabalho-Individual-2021-2/.github/workflows/CI.yml@main
-
   deploy:
-    needs: ci
     runs-on: ubuntu-latest
 
     steps:
